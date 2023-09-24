@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    ul  {
+        list-style: none;
+    }
+    p.info {
+        margin-left: 25px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+    div.card {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+</style>
+<body>
+    <h1>Lista de tareas</h1>
+    <div id="app">
+        <ul id="listTask"></ul>
+    </div>
+</body>
+<script>
+    const listTask = document.getElementById('listTask')
+
+    const tasks = [
+        {
+            id: 1,
+            title: 'Estudiar',
+            description: 'estudiar un hora al dia',
+            createAt: new Date(),
+            completeAt: new Date(),
+            done: true
+        },
+        {
+            id: 2,
+            title: 'Ir a merca',
+            description: 'toca ir a hacer mercado por que se acabo la comida',
+            createAt: new Date(),
+            completeAt: null,
+            done: false
+        }
+    ]
+
+    const optionsDate = { 
+        // timeZone: 'UTC', 
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+    }
+    
+    
+    tasks.forEach(({id, title, description, createAt, completeAt, done}) => {
+        const renderTask = `
+            <li name="task-${id}">
+                <div class="card">
+                    <Input type="checkbox" ${done && 'checked'}/> <strong>${title}</strong> - ${description}
+                    <p class="info"><strong>Creada:</strong>${createAt !== null ? createAt?.toLocaleString('es-CO', optionsDate) : ''}
+                    </p>
+                    <p class="info"><strong>Completada:</strong>${completeAt !== null ? completeAt?.toLocaleString('es-CO', optionsDate) : ''}
+                    </p>
+                </div>
+            </li>
+        `
+        listTask.insertAdjacentHTML('afterbegin', renderTask)
+    })
+</script>
+</html>
